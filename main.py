@@ -25,14 +25,6 @@ def f_GetData(PageNumber):
     return ApiData
 
 
-def f_print():
-    clear()
-    for page in range(len(StaticData)):
-        print(
-            StaticData[page]["title"], StaticData[page]["releaseDate"].rjust(61 - 1 - len(StaticData[page]["tile"])),
-        )
-
-
 def f_navInput():
     action = input()
     if action == "down":
@@ -41,6 +33,13 @@ def f_navInput():
         return False
 
 
+def f_print():
+    clear()
+    for page in range(len(StaticData)):
+        print(StaticData[page]["title"], StaticData[page]["releaseDate"].rjust(60 - len(StaticData[page]["tile"])))
+
+
+# Startup values!
 PageNumber = 0
 StaticData = f_GetData(PageNumber)
 f_print()
@@ -48,12 +47,14 @@ f_print()
 while True:
     StaticInput = f_navInput()
     if StaticInput == True:
+
         PageNumber = PageNumber + 1
 
         StaticData = f_GetData(PageNumber)
         f_print()
 
     elif StaticInput == False and PageNumber != 0:
+
         PageNumber = PageNumber - 1
 
         StaticData = f_GetData(PageNumber)
