@@ -10,10 +10,12 @@ def clear():
 
 def f_GetData(PageNumber):
     ApiData = {"message": "Internal server error"}
-
+    x = 0
     # check until valid data is send to us
     while ApiData == {"message": "Internal server error"}:
-        print("Trying...")
+        clear()
+        x = x + 1
+        print("Trying...", x)
 
         time.sleep(1)  # to prevent spamming (spamming causes ip ban by the api provider).
         ApiUrl = "https://api.crackwatch.com/api/games?page=" + str(PageNumber) + "&sort_by=release_date"
