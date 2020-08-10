@@ -12,17 +12,13 @@ def f_GetData(PageNumber):
     ApiData = {"message": "Internal server error"}
 
     # check until valid data is send to us
-    while ApiData == {"message": "Internal server error"}:
+    while ApiData == {"message": "Internal server error"}: 
         print("Trying...")
-        # to prevent spamming (spamming causes ip ban by the api provider).
-        time.sleep(1)
-        ApiUrl = (
-            "https://api.crackwatch.com/api/games?page="
-            + str(PageNumber)
-            + "&sort_by=release_date"
-        )
-        # gets the data from the url, turns it into dictionary
-        ApiData = requests.get(ApiUrl).json()
+        
+        time.sleep(1) # to prevent spamming (spamming causes ip ban by the api provider).
+        ApiUrl = ("https://api.crackwatch.com/api/games?page="+ str(PageNumber) + "&sort_by=release_date")
+        
+        ApiData = requests.get(ApiUrl).json() # gets the data from the url, turns it into dictionary
 
     return ApiData
 
@@ -30,12 +26,7 @@ def f_GetData(PageNumber):
 def f_print():
     clear()
     for page in range(len(StaticData)):
-        print(
-            StaticData[page]["title"],
-            StaticData[page]["releaseDate"].rjust(
-                61 - 1 - len(StaticData[page]["title"])
-            ),
-        )
+        print(StaticData[page]["title"], StaticData[page]["releaseDate"].rjust(61 - 1 - len(StaticData[page]["title"])))
 
 
 def f_navInput():
