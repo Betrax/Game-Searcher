@@ -5,19 +5,19 @@ import os
 
 
 def clear():
-    os.system("cls")  # on Windows System, just for easier debugging
+    os.system("cls")  # On Windows System, just for easier debugging
 
 
 def f_GetData(PageNumber):
     ApiData = {"message": "Internal server error"}
     x = 0
-    # check until valid data is send to us
+    # Check until valid data is send to us
     while ApiData == {"message": "Internal server error"}:
         clear()
         x = x + 1
         print("Trying...", x)
 
-        time.sleep(1)  # to prevent spamming (spamming causes ip ban by the api provider).
+        time.sleep(1)  # To prevent spamming (spamming causes ip ban by the api provider).
         ApiUrl = "https://api.crackwatch.com/api/games?page=" + str(PageNumber) + "&sort_by=release_date"
 
         ApiData = requests.get(ApiUrl).json()  # gets the data from the url, turns it into dictionary
@@ -44,6 +44,7 @@ PageNumber = 0
 StaticData = f_GetData(PageNumber)
 f_print()
 
+# The whole program loop (for console I think)
 while True:
     StaticInput = f_navInput()
     if StaticInput == True:
