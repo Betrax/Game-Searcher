@@ -24,7 +24,7 @@ def f_GetData(PageNumber):
 
     return ApiData
 
-    
+
 def f_navInput():
     action = input()
     if action == "down":
