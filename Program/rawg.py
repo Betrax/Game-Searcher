@@ -4,7 +4,7 @@ import requests
 import os
 
 os.system("cls")
-###################
+#####################
 
 
 #### Functions
@@ -69,7 +69,7 @@ def _GetData_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Da
     #############Delete############
     Succes = 0
     Fail = 0
-    #########################
+    #################################
 
     while PageNumber <= AmountOfPages:
 
@@ -81,7 +81,7 @@ def _GetData_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Da
                 except:
                     AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
                     Game = AStaticData
-                ############################Delete#################
+#######################################################Delete#################
                 os.system("cls")
                 Succes = Succes + 1
                 print("succes: ", (Succes))
@@ -93,7 +93,7 @@ def _GetData_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Da
                 print("succes: ", (Succes))
                 print("fail:", Fail)
                 print("Total:", AmountOfGames, "-", Succes + Fail)
-        ##################################################
+##############################################################################
         # goes trough pages
         PageNumber = PageNumber + 1
         if PageNumber <= AmountOfPages:
