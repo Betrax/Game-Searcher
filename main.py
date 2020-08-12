@@ -35,8 +35,8 @@ def f_navInput():
 
 def f_print():
     clear()
-    for page in range(len(StaticData)):
-        print(StaticData[page]["title"], StaticData[page]["releaseDate"].rjust(60 - len(StaticData[page]["tile"])))
+    for game in range(len(StaticData)):
+        print(StaticData[game]["title"], StaticData[game]["releaseDate"].rjust(60 - len(StaticData[game]["title"])))
 
 
 ### Startup values! #####################################################################################################
