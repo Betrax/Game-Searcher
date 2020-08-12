@@ -69,7 +69,7 @@ def _GetData_Date(year1=2020, month1=8, day1=4, year2=2020, month2=9, day2=4):
             else:
                 os.system("cls")
                 Fail = Fail + 1
-                print("succes: ", (Succes))
+                print("success: ", (Succes))
                 print("fail:", Fail)
                 print("Total:", AmountOfGames, Succes + Fail)
             #############################################
