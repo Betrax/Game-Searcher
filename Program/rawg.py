@@ -8,59 +8,80 @@ os.system("cls")
 
 
 #### Functions
-def _Url(year1, month1, day1, year2, month2, day2, PageNumber=1):
-    if month1 < 10:
-        month1 = "0" + str(month1)
-    if day1 < 10:
-        day1 = "0" + str(day1)
-    if month2 < 10:
-        month2 = "0" + str(month2)
-    if day2 < 10:
-        day2 = "0" + str(day2)
+def _Date_ToDay_Year():
+    print("Year")
+
+
+def _Date_ToDay_Month():
+    print("Month")
+
+
+def _Date_ToDay_Day():
+    print("Day")
+
+
+def _Platforms():
+    return "4,187,1,18"
+
+
+def _Url(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1, Platforms=_Platforms()):
+    if Month1 < 10:
+        Month1 = "0" + str(Month1)
+    if Day1 < 10:
+        Day1 = "0" + str(Day1)
+    if Month2 < 10:
+        Month2 = "0" + str(Month2)
+    if Day2 < 10:
+        Day2 = "0" + str(Day2)
 
     Url = (
         "https://api.rawg.io/api/games?dates="
-        + str(year1)
+        + str(Year1)
         + "-"
-        + str(month1)
+        + str(Month1)
         + "-"
-        + str(day1)
+        + str(Day1)
         + ","
-        + str(year2)
+        + str(Year2)
         + "-"
-        + str(month2)
+        + str(Month2)
         + "-"
-        + str(day2)
+        + str(Day2)
         + "&page="
         + str(PageNumber)
-        + "&platforms=4,187,1,18,186&page_size=40&ordering=released"
+        + "&platforms="
+        + Platforms
+        + "&page_size=40&ordering=released"
     )
     return Url
 
 
-def _GetData_Date(year1=2020, month1=8, day1=4, year2=2020, month2=9, day2=4):
+def _GetData_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Day2=4):  # just place holder values
 
-    Url = _Url(year1, month1, day1, year2, month2, day2)
+    Url = _Url(Year1, Month1, Day1, Year2, Month2, Day2)
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
-    AmountOfPages = AmountOfGames // 40 + 1
+    AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
+    if AmountOfGames % 40 != 0:
+        AmountOfPages = AmountOfPages + 1  # does +1 if there's a leftover page
     PageNumber = 1
 
-    #######Delete############
+    #############Delete############
     Succes = 0
     Fail = 0
-    #####################
+    #########################
+
     while PageNumber <= AmountOfPages:
 
         for x in range(len(StaticData["results"])):
             if StaticData["results"][x]["added"] > 0:
-                try:
-                    AStaticData = (StaticData["results"][x],)  # turns it to tulpe
+                try:  # can't start with an empty Game variable
+                    AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe, it keeps adding tulpes to 1 giant one that contains all the filtered information
                     Game = Game + AStaticData
                 except:
-                    AStaticData = (StaticData["results"][x],)  # turns it to tulpe
+                    AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
                     Game = AStaticData
-                #############Delete#################
+                ############################Delete#################
                 os.system("cls")
                 Succes = Succes + 1
                 print("succes: ", (Succes))
@@ -71,20 +92,19 @@ def _GetData_Date(year1=2020, month1=8, day1=4, year2=2020, month2=9, day2=4):
                 Fail = Fail + 1
                 print("succes: ", (Succes))
                 print("fail:", Fail)
-                print("Total:", AmountOfGames, Succes + Fail)
-            #############################################
+                print("Total:", AmountOfGames, "-", Succes + Fail)
+        ##################################################
         # goes trough pages
         PageNumber = PageNumber + 1
         if PageNumber <= AmountOfPages:
-            Url = _Url(year1, month1, day1, year2, month2, day2, PageNumber)
+            Url = _Url(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber)
             StaticData = requests.get(Url).json()
 
     return Game
 
 
 #### Save it to local variables #####
-StaticData = _GetData_Date()
-
+StaticData = _GetData_Popular_Date()
 
 ### Main program ###################
 for x in range(len(StaticData)):
