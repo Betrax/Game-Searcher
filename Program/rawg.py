@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 ######Delete#########
 import time
@@ -14,19 +15,19 @@ def _SearchGame(GameName, PageNumber=1):
 
 
 def _Date_ToDay_Year():
-    print("Year")
+    YearToday = datetime.datetime.now().year
+    Year = 2020
+    return YearToday
 
 
 def _Date_ToDay_Month():
-    print("Month")
+    MonthToday = datetime.datetime.now().month
+    return MonthToday
 
 
 def _Date_ToDay_Day():
-    print("Day")
-
-
-def _Platforms():
-    return "4,187,1,18"
+    DayToday = datetime.datetime.now().day
+    return DayToday
 
 
 def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
@@ -43,11 +44,12 @@ def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
     return Url
 
 
-def _Games_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Day2=4):  # just place holder values
+def _Games_Popular_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Date_ToDay_Day(), Year2=_Date_ToDay_Year(), Month2=_Date_ToDay_Month(), Day2=_Date_ToDay_Day()):
 
     Url = f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2)
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
+
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
     if AmountOfGames % 40 != 0:
@@ -69,8 +71,6 @@ def _Games_Popular_Date(Year1=2020, Month1=8, Day1=4, Year2=2020, Month2=8, Day2
 
 def f_Check_Popular(StaticData):
 
-    EmptyTuple = ()
-
     for x in range(len(StaticData["results"])):
         if StaticData["results"][x]["added"] > 0:
             try:  # can't start with an empty Game variable
@@ -79,14 +79,16 @@ def f_Check_Popular(StaticData):
             except:
                 AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
                 Games = AStaticData
+
     try:
         return Games
     except:
+        EmptyTuple = ()
         return EmptyTuple
 
 
 #### Save it to local variables #####
-StaticData = _Games_Popular_Date(2020, 8, 4, 2020, 8, 4)
+StaticData = _Games_Popular_Date()
 
 ### Main program ###################
 for x in range(len(StaticData)):
