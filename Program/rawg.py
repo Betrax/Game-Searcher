@@ -1,16 +1,13 @@
 import requests
 import datetime
-import time
-
-###########Delete#########
-def ppause(x):
-    print(x)
-    time.sleep(100)
-
-
-########################
 
 #### Functions
+def _Sort(StaticData):
+
+    SortedStaticData = sorted(StaticData, key=lambda x: x["added"], reverse=True)
+    return SortedStaticData
+
+
 def _Date_ToDay_Year():
     YearToday = datetime.datetime.now().year
     Year = 2020
@@ -25,12 +22,6 @@ def _Date_ToDay_Month():
 def _Date_ToDay_Day():
     DayToday = datetime.datetime.now().day
     return DayToday
-
-
-def _Sort(StaticData):
-
-    SortedStaticData = sorted(StaticData, key=lambda x: x["added"], reverse=True)
-    return SortedStaticData
 
 
 def f_Check_Popular(StaticData):
@@ -57,6 +48,20 @@ def f_Url_Search(GameName, PageNumber=1):
     return Url
 
 
+def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
+    if Month1 < 10:
+        Month1 = "0" + str(Month1)
+    if Day1 < 10:
+        Day1 = "0" + str(Day1)
+    if Month2 < 10:
+        Month2 = "0" + str(Month2)
+    if Day2 < 10:
+        Day2 = "0" + str(Day2)
+
+    Url = "https://api.rawg.io/api/games?dates=" + str(Year1) + "-" + str(Month1) + "-" + str(Day1) + "," + str(Year2) + "-" + str(Month2) + "-" + str(Day2) + "&page=" + str(PageNumber) + "&platforms=4,187,1,18&page_size=40&ordering=released"
+    return Url
+
+
 def _Search_Name(GameName):
     Url = f_Url_Search(GameName)
     StaticData = requests.get(Url).json()
@@ -79,20 +84,6 @@ def _Search_Name(GameName):
             StaticData = requests.get(Url).json()
 
     return Games
-
-
-def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
-    if Month1 < 10:
-        Month1 = "0" + str(Month1)
-    if Day1 < 10:
-        Day1 = "0" + str(Day1)
-    if Month2 < 10:
-        Month2 = "0" + str(Month2)
-    if Day2 < 10:
-        Day2 = "0" + str(Day2)
-
-    Url = "https://api.rawg.io/api/games?dates=" + str(Year1) + "-" + str(Month1) + "-" + str(Day1) + "," + str(Year2) + "-" + str(Month2) + "-" + str(Day2) + "&page=" + str(PageNumber) + "&platforms=4,187,1,18&page_size=40&ordering=released"
-    return Url
 
 
 def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Date_ToDay_Day(), Year2=_Date_ToDay_Year(), Month2=_Date_ToDay_Month(), Day2=_Date_ToDay_Day()):
