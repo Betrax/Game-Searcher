@@ -1,19 +1,16 @@
 import requests
 import datetime
-
-######Delete#########
 import time
-import os
 
-os.system("cls")
-#####################
+###########Delete#########
+def ppause(x):
+    print(x)
+    time.sleep(100)
 
+
+########################
 
 #### Functions
-def _SearchGame(GameName, PageNumber=1):
-    Url = "https://api.rawg.io/api/games?search=" + GameName + "&page=" + str(PageNumber) + "&platforms=4,187,1,18&page_size=40"
-
-
 def _Date_ToDay_Year():
     YearToday = datetime.datetime.now().year
     Year = 2020
@@ -30,6 +27,60 @@ def _Date_ToDay_Day():
     return DayToday
 
 
+def _Sort(StaticData):
+
+    SortedStaticData = sorted(StaticData, key=lambda x: x["added"], reverse=True)
+    return SortedStaticData
+
+
+def f_Check_Popular(StaticData):
+
+    for x in range(len(StaticData["results"])):
+        if StaticData["results"][x]["added"] > 0:
+            try:  # can't start with an empty Game variable
+                AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
+                Games = Games + AStaticData
+            except:
+                AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
+                Games = AStaticData
+
+    try:
+        return Games
+    except:
+        EmptyTuple = ()
+        return EmptyTuple
+
+
+def f_Url_Search(GameName, PageNumber=1):
+
+    Url = "https://api.rawg.io/api/games?search=" + GameName + "&page=" + str(PageNumber) + "&platforms=4,187,1,18&page_size=40"
+    return Url
+
+
+def _Search_Name(GameName):
+    Url = f_Url_Search(GameName)
+    StaticData = requests.get(Url).json()
+    AmountOfGames = StaticData["count"]
+    print (AmountOfGames)
+    AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
+    PageNumber = 1
+    if AmountOfGames % 40 != 0:
+        AmountOfPages = AmountOfPages + 1
+
+    while PageNumber <= AmountOfPages:
+        try:
+            Games = Games + f_Check_Popular(StaticData)
+        except:
+            Games = f_Check_Popular(StaticData)
+
+        PageNumber = PageNumber + 1
+        if PageNumber <= AmountOfPages:
+            Url = f_Url_Search(GameName, PageNumber)
+            StaticData = requests.get(Url).json()
+
+    return Games
+
+
 def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
     if Month1 < 10:
         Month1 = "0" + str(Month1)
@@ -44,7 +95,7 @@ def f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber=1):
     return Url
 
 
-def _Games_Popular_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Date_ToDay_Day(), Year2=_Date_ToDay_Year(), Month2=_Date_ToDay_Month(), Day2=_Date_ToDay_Day()):
+def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Date_ToDay_Day(), Year2=_Date_ToDay_Year(), Month2=_Date_ToDay_Month(), Day2=_Date_ToDay_Day()):
 
     Url = f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2)
     StaticData = requests.get(Url).json()
@@ -69,26 +120,8 @@ def _Games_Popular_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Da
     return Games
 
 
-def f_Check_Popular(StaticData):
-
-    for x in range(len(StaticData["results"])):
-        if StaticData["results"][x]["added"] > 0:
-            try:  # can't start with an empty Game variable
-                AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
-                Games = Games + AStaticData
-            except:
-                AStaticData = (StaticData["results"][x],)  # the ","turns it to tulpe
-                Games = AStaticData
-
-    try:
-        return Games
-    except:
-        EmptyTuple = ()
-        return EmptyTuple
-
-
 #### Save it to local variables #####
-StaticData = _Games_Popular_Date()
+StaticData = _Search_Name((input()))
 
 ### Main program ###################
 for x in range(len(StaticData)):
