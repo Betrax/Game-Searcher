@@ -66,7 +66,7 @@ def _Search_Name(GameName):
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
-    print(AmountOfGames)
+    print(AmountOfGames) #delete this
 
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
