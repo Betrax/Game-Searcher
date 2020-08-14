@@ -119,5 +119,6 @@ StaticData = _Search_Name((input()))
 
 
 ### Main program ###################
+print(len(StaticData))
 for x in range(len(StaticData)):
     print(StaticData[x]["name"])
