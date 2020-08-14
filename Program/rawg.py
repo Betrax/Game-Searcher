@@ -18,7 +18,6 @@ def _Date_ToDay_Month():
     return MonthToday
 
 
-
 def _Date_ToDay_Day():
     DayToday = datetime.datetime.now().day
     return DayToday
@@ -66,7 +65,9 @@ def _Search_Name(GameName):
     Url = f_Url_Search(GameName)
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
+
     print(AmountOfGames)
+
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
     if AmountOfGames % 40 != 0:
@@ -92,6 +93,8 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
+    print(AmountOfGames)
+
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
     if AmountOfGames % 40 != 0:
@@ -113,6 +116,7 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
 
 #### Save it to local variables #####
 StaticData = _Search_Name((input()))
+
 
 ### Main program ###################
 for x in range(len(StaticData)):
