@@ -3,7 +3,6 @@ import datetime
 
 #### Functions
 def _Sort(StaticData):
-
     SortedStaticData = sorted(StaticData, key=lambda x: x["added"], reverse=True)
     return SortedStaticData
 
@@ -17,6 +16,7 @@ def _Date_ToDay_Year():
 def _Date_ToDay_Month():
     MonthToday = datetime.datetime.now().month
     return MonthToday
+
 
 
 def _Date_ToDay_Day():
