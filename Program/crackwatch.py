@@ -39,7 +39,7 @@ def f_print():
         print(StaticData[game]["title"], StaticData[game]["releaseDate"].rjust(60 - len(StaticData[game]["title"])))
 
 
-### Startup values! #####################################################################################################
+### Startup values! ######################################################################################################
 PageNumber = 0
 StaticData = f_GetData(PageNumber)
 f_print()

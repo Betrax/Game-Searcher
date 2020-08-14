@@ -1,9 +1,8 @@
-a = {"abrand": "aFord"}, {"bbrand": "bFord"}
+d1 = {"value": 2, "Name": "two"}, {"value": 3, "Name": "three"}, {"value": 1, "Name": "one"}
 
-b = {"bbrand": "zbFord"}
-c = {"bbrand": "zbFord"}
+d2 = {"value": 1, "Name": "one"}, {"value": 2, "Name": "two"}, {"value": 3, "Name": "three"}, {"value": 4, "Name": "four"}
 
-b = (b,)
-c = c,
-d = a + b + c
-print(d)
+d2 = sorted(d1, key=lambda x: x["value"])
+
+print(d2[0]["value"])
+
