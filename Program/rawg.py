@@ -123,6 +123,3 @@ print(len(StaticData))
 for x in range(len(StaticData)):
     print(StaticData[x]["name"])
 
-
-# this is a test for Gitpod
-
