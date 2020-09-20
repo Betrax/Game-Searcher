@@ -66,8 +66,6 @@ def _Search_Name(GameName):
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
-    print(AmountOfGames)  # delete this
-
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
     if AmountOfGames % 40 != 0:
@@ -93,7 +91,7 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
-    print(AmountOfGames)  # delete this
+    print("Total games:", AmountOfGames)  # delete this
 
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
@@ -115,11 +113,12 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
 
 
 #### Save it to local variables #####
-StaticData = _Search_Date()
+StaticData = _Search_Date(2020, 9, 21, 2020, 9, 21)
 
 
 ### Main program ###################
-print(len(StaticData))
+print("Cool games:", len(StaticData))
 for x in range(len(StaticData)):
     print(StaticData[x]["name"])
+
 
