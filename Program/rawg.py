@@ -120,5 +120,3 @@ StaticData = _Search_Date(2020, 9, 21, 2020, 9, 21)
 print("Cool games:", len(StaticData))
 for x in range(len(StaticData)):
     print(StaticData[x]["name"])
-
-
