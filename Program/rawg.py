@@ -91,7 +91,7 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
-    print("Total games:", AmountOfGames)  # delete this
+    print("Total gamez:", AmountOfGames)  # delete this
 
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
