@@ -91,7 +91,7 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
     StaticData = requests.get(Url).json()
     AmountOfGames = StaticData["count"]
 
-    print("Total gamez:", AmountOfGames)  # delete this
+    print("Total games:", AmountOfGames)  # delete this
 
     AmountOfPages = AmountOfGames // 40  # 1 page contains 40 so it does amount//40 to get pages
     PageNumber = 1
@@ -108,15 +108,20 @@ def _Search_Date(Year1=_Date_ToDay_Year(), Month1=_Date_ToDay_Month(), Day1=_Dat
         if PageNumber <= AmountOfPages:
             Url = f_Url_Date(Year1, Month1, Day1, Year2, Month2, Day2, PageNumber)
             StaticData = requests.get(Url).json()
-
-    return Games
+    try:
+        return Games
+    except:
+        pass
 
 
 #### Save it to local variables #####
-StaticData = _Search_Date(2020, 9, 21, 2020, 9, 21)
+StaticData = _Search_Date()
 
 
 ### Main program ###################
-print("Cool games:", len(StaticData))
-for x in range(len(StaticData)):
-    print(StaticData[x]["name"])
+try:
+    print("Cool games:", len(StaticData))
+    for x in range(len(StaticData)):
+        print(StaticData[x]["name"])
+except:
+    print("No games buddy")
