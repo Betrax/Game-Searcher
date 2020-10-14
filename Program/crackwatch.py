@@ -63,4 +63,4 @@ while True:
         f_print()
 
     else:
-        print("You're already at page 0")
+        print("You're already at page zero")
